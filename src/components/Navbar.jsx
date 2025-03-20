@@ -9,8 +9,8 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   const toggleResume = () => {
-    const resumeUrl = '/Resume.pdf';
-    window.open(resumeUrl);
+    const resumeUrl = `${process.env.PUBLIC_URL}/Resume.pdf`;
+    window.open(resumeUrl, '_blank');
   };
 
   useEffect(() => {
