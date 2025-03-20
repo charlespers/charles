@@ -1,7 +1,6 @@
 // Import company logos
-import mathwork from "./company/mathwork.png";
-import edunet from "./company/edunet.png";
-import eduskill from "./company/eduskill.png";
+import evalgaming from "./company/evalgaming.png";
+import quantcap from "./company/quantcap.png";
 
 // Import tech stack images
 import python from "./tech-stack/python.png";
@@ -10,12 +9,9 @@ import cpp from "./tech-stack/cpp.png";
 import java from "./tech-stack/java.png";
 
 // Import project images
-import weatherpedia from "./projects/WeatherPedia.png";
-import termpw from "./projects/termpw.png";
-import payloadmaster from "./projects/payloadmaster.png";
-import mhft from "./projects/mhft.png";
-import sketcher from "./projects/sketcher.png";
-import CompileVortex from "./projects/CompileVortex.png";
+import pqt_web from "./projects/pqt_web.png";
+import eval_web from "./projects/eval_web.png";
+import pqt_p1 from "./projects/pqt_p1.png";
 
 // Import tech logos
 import css from "./tech/css.png";
@@ -34,8 +30,7 @@ import menu from "./menu.svg";
 import close from "./close.svg";
 
 export {
-  mathwork,
-  edunet,
+  evalgaming,
   python,
   c,
   cpp,
@@ -49,14 +44,11 @@ export {
   reactjs,
   tailwind,
   threejs,
-  weatherpedia,
-  termpw,
-  payloadmaster,
-  mhft,
-  sketcher,
-  CompileVortex,
+  pqt_web,
+  eval_web,
+  pqt_p1,
   logo,
   menu,
   close,
-  eduskill,
+  quantcap,
 };

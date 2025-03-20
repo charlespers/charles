@@ -10,16 +10,12 @@ import {
   tailwind,
   nodejs,
   git,
-  edunet,
-  weatherpedia,
-  termpw,
-  payloadmaster,
+  pqt_web,
+  eval_web,
+  pqt_p1,
   threejs,
-  mhft,
-  sketcher,
-  mathwork,
-  CompileVortex,
-  eduskill,
+  evalgaming,
+  quantcap,
 } from "../assets";
 
 export const navLinks = [
@@ -57,114 +53,70 @@ export const technologies = [
 
 export const experiences = [
   {
-    title: "AI/ML Intern",
-    company_name: "EduSkill Foundation | AWS Academy | AICTE",
-    icon: eduskill,
+    title: "Data Analyst | Software Engineer",
+    company_name: "Eval",
+    icon: evalgaming,
     iconBg: "#161329",
-    date: "Sep 2023 - Nov 2023",
+    date: "Feb 2025 - Present",
     points: [
-      "Acquired hands-on knowledge of AWS Cloud Foundation, delving into cloud infrastructure, services, and deployment.",
-      "also gaining a solid foundation in Machine Learning, covering topics like algorithms, data analysis, and model building.",
+      "Designed and deployed scalable web applications using React, Vite, and Tailwind, optimizing frontend performance and data visualization for over 10K player ranking entries.",
+      "Built and maintained backend infrastructure with Supabase, handling real-time ingestion and retrieval of thousands of player performance records across multiple esports leagues.",
+      "Developed and implemented machine learning models for ranking optimization, leveraging clustering, classification, and regression techniques to refine predictive analytics for player rankings.",
+      "Engineered automated data pipelines for processing and analyzing high-frequency match data, applying statistical methods and deep learning techniques to enhance ranking accuracy."
     ],
   },
   {
-    title: "Mathwork Ai Virtual Intern",
-    company_name: "Mathwork | AICTE",
-    icon: mathwork,
+    title: "Quantitative Research Intern",
+    company_name: "Quantcap",
+    icon: quantcap,
     iconBg: "#161329",
-    date: "May 2023 - Sep 2023",
+    date: "Dec 2024 - Feb 2025",
     points: [
-      "Completed virtual internship, gaining a strong foundation in MATLAB, including data analysis and processing.",
-      "Acquired practical skills in image and signal processing, including segmentation, batch processing, and spectral analysis.",
-      "Developed expertise in machine learning models for clustering, classification, and regression, and customized deep learning techniques for image classification.",
-    ],
-  },
-  {
-    title: "Artificial Intelligence Intern",
-    company_name: "Edunet Foundation | IBM SkillsBuild | AICTE",
-    icon: edunet,
-    iconBg: "#161329",
-    date: "June 2023 - July 2023",
-    points: [
-      "Engineered a comprehensive Mental Health Fitness Tracker ML model utilizing Python and scikit-learn.",
-      "Maximized the model's performance by refining model parameters and employing ensemble methods, yielding an outstanding accuracy percentage of 98.50%.",
-      "Leveraged 12 regression algorithms to attain precise outcomes in analyzing and predicting mental fitness levels across 150+ countries.",
+      "Constructing machine learning statistical arbitrage models using regressions, random forests / other tree-based models, and Neural Networks (e.g. DNNs, RNNs, CNNs) to come up with 2.95x returns over a year.",
+      "Using Python (Tensor Flow, Pandas, Pytorch) and C++ to scrape and clean data to manipulate it for use in Machine Learning models",
+      "Identified mispriced options and developed systematic long/short trading strategies, improving risk-adjusted returns and Sharpe ratio by 5% over baseline models. Backtested strategies and benchmarked performance against established volatility models",
+      "Led the historical options data workstream, developing a high-performance data pipeline that processed and analyzed 5.2 million historical time-series data points across six datasets. Integrated three alternative data sources, improving predictive accuracy by 18% and optimizing proprietary trading signals through machine learning-driven algorithms."
     ],
   },
 ];
 
 export const projects = [
   {
-    name: "WeatherPedia",
+    name: "Princeton Quantitative Traders Website",
     description:
-      "Web-based platform that allows users to access weather information for their location by entering it in the search field",
+      "Official website for Princeton's premier club Princeton Quantitative Traders",
     tags: [
       { name: "Javascript", color: "blue-text-gradient" },
       { name: "HTML", color: "green-text-gradient" },
-      { name: "bootstrap 5.3.0", color: "pink-text-gradient" },
-      { name: "Weather API by API Ninjas", color: "yellow-text-gradient" },
+      { name: "PQT website", color: "yellow-text-gradient" },
     ],
-    image: weatherpedia,
-    source_code_link: "https://github.com/lohitkolluri/WeatherPedia",
+    image: pqt_web,
+    source_code_link: "https://github.com/charlespers/front_end_pqt",
   },
   {
-    name: "Terminal Like Portfolio Website",
+    name: "Eval Website",
     description:
-      "A terminal themed portfolio website that allows users to type into the terminal and use commands like a real terminal.",
+      "Official website for Eval. Ranking esports players.",
     tags: [
       { name: "HTML", color: "blue-text-gradient" },
       { name: "css", color: "green-text-gradient" },
       { name: "Javascript", color: "pink-text-gradient" },
     ],
-    image: termpw,
-    source_code_link: "https://github.com/lohitkolluri/lohitkolluri.github.io",
+    image: eval_web,
+    source_code_link: "https://github.com/Sundunbun/evalgaming",
   },
   {
-    name: "Mental Health Fitness Tracker",
+    name: "Bitcoin Price Prediction with Machine Learning",
     description:
-      "ML model that utilizes regression techniques to provide insights into mental health and make predictions based on the available data.",
+      "ML model that utilizes regression techniques to provide insight into bitcoin price data. Taught over 50 Princeton students how to use web scraping, API calls, Machine Learning, and financial mathmatics to predict bitcoin prices.",
     tags: [
       { name: "Machine Learning", color: "blue-text-gradient" },
       { name: "Jupyter Notebook", color: "green-text-gradient" },
       { name: "Regression Algorithms", color: "pink-text-gradient" },
     ],
-    image: mhft,
+    image: pqt_p1,
     source_code_link:
-      "https://github.com/lohitkolluri/mental_health_fitness_tracker",
-  },
-  {
-    name: "PayloadMaster",
-    description:
-      "Tool to automate payload creation using the Metasploit framework",
-    tags: [
-      { name: "shell", color: "blue-text-gradient" },
-    ],
-    image: payloadmaster,
-    source_code_link: "https://github.com/lohitkolluri/PayloadMaster",
-  },
-  {
-    name: "CompileVortex",
-    description:
-      "Tool to automate payload creation using the Metasploit framework",
-    tags: [
-      { name: "Javascript", color: "blue-text-gradient" },
-      { name: "CSS", color: "green-text-gradient" },
-      { name: "HTML", color: "pink-text-gradient" },
-    ],
-    image: CompileVortex,
-    source_code_link: "https://github.com/lohitkolluri/CompileVortex",
-  },
-  {
-    name: "Sketcher",
-    description:
-      "Convert an input image to a pencil sketch using OpenCV and Matplotlib libraries.",
-    tags: [
-      { name: "OpenCV", color: "blue-text-gradient" },
-      { name: "Matplotlib", color: "green-text-gradient" },
-      { name: "Python", color: "pink-text-gradient" },
-    ],
-
-    image: sketcher,
-    source_code_link: "https://github.com/lohitkolluri/Image_to_Pencil_Sketch_App",
+      "https://github.com/charlespers/project1-bitcoin-pqt",
   },
 ];
+
