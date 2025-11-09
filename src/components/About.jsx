@@ -5,7 +5,7 @@ import { SectionWrapper } from '../hoc';
 import { styles } from '../styles';
 import { fadeIn, textVariant } from '../utils/motion';
 
-const ServiceCard = ({ index, title, icon }) => (
+const ServiceCard = ({ index, title }) => (
   <motion.div
     variants={fadeIn('up', 'spring', index * 0.1, 0.75)}
     whileHover={{ y: -2 }}
@@ -13,11 +13,30 @@ const ServiceCard = ({ index, title, icon }) => (
   >
     <div className="relative bg-white/5 border border-white/10 rounded-lg p-6 hover:border-blue-500/30 transition-all duration-200">
       <div className="flex flex-col items-center space-y-3">
-        <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
-          <img src={icon} alt={title} className="w-8 h-8 object-contain" loading="lazy" />
+        <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center border border-white/10">
+          <span className="text-white font-bold text-lg">{title.charAt(0)}</span>
         </div>
         <h3 className="text-white text-sm font-medium">{title}</h3>
       </div>
+    </div>
+  </motion.div>
+);
+
+// Achievement Badge Component (no emojis)
+const AchievementBadge = ({ label, value }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    whileHover={{ scale: 1.05 }}
+    className="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-lg hover:border-blue-500/30 transition-all"
+  >
+    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center border border-white/10">
+      <span className="text-white font-bold text-xs">{label.charAt(0)}</span>
+    </div>
+    <div>
+      <div className="text-white font-semibold">{value}</div>
+      <div className="text-xs text-gray-400">{label}</div>
     </div>
   </motion.div>
 );
@@ -55,12 +74,19 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="text-gray-300 text-lg leading-relaxed mb-8"
           >
-            I'm a student at <span className="text-white font-medium">Princeton University</span> passionate about the intersection of 
-            <span className="text-blue-400"> AI</span>, 
-            <span className="text-purple-400"> machine learning</span>, and 
-            <span className="text-pink-400"> quantitative finance</span>. 
-            I build scalable applications and develop ML models that solve real-world problems.
+            I'm a student at <span className="text-white font-medium">Princeton University</span> focused on 
+            <span className="text-blue-400"> AI/ML research</span> and 
+            <span className="text-green-400"> sustainable AI development</span>. 
+            I'm passionate about building responsible, efficient machine learning systems that advance the field while considering environmental and ethical implications.
           </motion.p>
+
+          {/* Achievement Badges */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <AchievementBadge label="HackPrinceton Winner" value="Track Winner" />
+            <AchievementBadge label="GitHub Repositories" value="9" />
+            <AchievementBadge label="Projects Deployed" value="10+" />
+            <AchievementBadge label="Active Roles" value="3" />
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -89,13 +115,16 @@ const About = () => {
           <h3 className="text-xl font-semibold text-white mb-6 text-center">Core Languages</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {services.map((service, index) => (
-              <ServiceCard key={service.title} index={index} {...service} />
+              <ServiceCard key={service.title} index={index} title={service.title} />
             ))}
           </div>
         </div>
+
       </motion.div>
     </div>
   );
 };
 
-export default SectionWrapper(About, 'about');
+const WrappedAbout = SectionWrapper(About, 'about');
+
+export default WrappedAbout;

@@ -42,11 +42,9 @@ const Tech = () => {
             className="group"
           >
             <div className="relative bg-white/5 border border-white/10 rounded-lg p-4 hover:border-blue-500/30 transition-all duration-200 flex flex-col items-center justify-center aspect-square">
-              <img
-                src={tech.icon}
-                alt={tech.name}
-                className="w-10 h-10 object-contain mb-2"
-              />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mb-2 border border-white/10">
+                <span className="text-white font-bold text-xs">{tech.name.split(' ')[0].charAt(0)}</span>
+              </div>
               <p className="text-center text-gray-400 text-xs group-hover:text-blue-400 transition-colors">
                 {tech.name}
               </p>

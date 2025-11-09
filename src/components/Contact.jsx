@@ -6,32 +6,33 @@ import { SectionWrapper } from "../hoc";
 // Knowledge base about Charles
 const knowledgeBase = {
   greetings: [
-    "Hello! I'm Charles's AI assistant. How can I help you learn about him?",
-    "Hi there! I'm here to tell you about Charles's work, skills, and projects. What would you like to know?",
-    "Hey! I'm Charles's AI assistant. Ask me anything about his experience, projects, or skills!"
+    "Hello! I'm Charles. How can I help you learn about my work?",
+    "Hi there! I'm here to tell you about my work, skills, and projects. What would you like to know?",
+    "Hey! Ask me anything about my experience, projects, or skills!"
   ],
   skills: {
-    languages: "Charles is proficient in Python, JavaScript, Java, C, and C++. He uses Python extensively for machine learning and data science, JavaScript/React for full-stack development, and lower-level languages for performance-critical applications.",
-    ml: "Charles has strong expertise in Machine Learning, including neural networks (LSTM, DNNs, CNNs), random forests, regression models, and deep learning frameworks like TensorFlow and PyTorch.",
-    web: "For web development, Charles works with React, Vite, Tailwind CSS, Node.js, and modern frontend frameworks. He's built scalable applications handling thousands of users.",
-    tools: "His toolkit includes TensorFlow, Pandas, Scikit-learn, SQL, Supabase, Git, and various data analysis tools. He's experienced with both frontend and backend development."
+    languages: "I'm proficient in Python, JavaScript, Java, C, and C++. I use Python extensively for AI/ML research and data science, JavaScript/React for full-stack development, and lower-level languages for performance-critical applications.",
+    ml: "I have strong expertise in Machine Learning research, including neural networks (LSTM, DNNs, CNNs), random forests, regression models, and deep learning frameworks like TensorFlow and PyTorch. I'm particularly interested in sustainable AI development.",
+    web: "For web development, I work with React, Vite, Tailwind CSS, Node.js, and modern frontend frameworks. I've built scalable applications handling thousands of users.",
+    tools: "My toolkit includes TensorFlow, Pandas, Scikit-learn, SQL, Supabase, Git, and various data analysis tools. I'm experienced with both frontend and backend development, with a focus on efficient, sustainable systems.",
+    sustainable: "I'm passionate about sustainable AI development - building efficient ML models that reduce computational costs and environmental impact while maintaining high performance. This includes model optimization, efficient architectures, and responsible AI practices."
   },
   experience: {
-    current: "Currently, Charles is a Machine Learning Research Assistant at Princeton University (Sep 2025 - Present) and a Developer at Hoagie Club (Sep 2025 - Present).",
+    current: "Currently, I'm a Machine Learning Research Assistant at Princeton University (Sep 2025 - Present) and a Developer at Hoagie Club (Sep 2025 - Present).",
     recent: "Recent roles include: Machine Learning Research Intern at Naval Medical Research Unit San Antonio (May 2025 - Sep 2025), Full-stack Developer at EVAL (Feb 2025 - Sep 2025), and Quantitative Research Intern at Quantcap (Dec 2024 - Jan 2025).",
-    highlights: "At EVAL, he built scalable web apps for 10K+ player rankings, developed ML models for ranking optimization, and engineered automated data pipelines. At Quantcap, he created ML models achieving 2.95x returns and processed 5.2 million data points."
+    highlights: "At EVAL, I built scalable web apps for 10K+ player rankings, developed ML models for ranking optimization, and engineered automated data pipelines. At Quantcap, I created ML models achieving 2.95x returns and processed 5.2 million data points."
   },
   projects: {
-    jigsaw: "Jigsaw is a modern web application showcasing innovative design and full-stack development skills. Built with React and modern UI/UX principles. Live at jigsaw-five.vercel.app/design",
+    jigsaw: "Jigsaw is a modern web application that won the HackPrinceton track! It showcases innovative design and full-stack development skills. Built with React and modern UI/UX principles. Live at jigsaw-five.vercel.app/design",
     pqt: "Princeton Quantitative Traders website - the official site for Princeton's premier quantitative trading club. Features modern design and comprehensive information. Live at princeton-quant.com",
     eval: "EVAL Gaming - comprehensive esports ranking platform with real-time data visualization. Features league rankings, player statistics, and handles thousands of records. Built with React, Supabase, and ML models. Live at evalgaming.com",
     quantcap: "Quantcap Options - quantitative trading platform for options analysis with ML models for pricing and trading strategies. Uses Python, TensorFlow, and advanced ML techniques.",
-    sleepsync: "SleepSync - application focused on sleep tracking and synchronization, built with modern web technologies.",
-    bitcoin: "Bitcoin Price Prediction - ML model using regression techniques. Charles taught 50+ Princeton students web scraping, API calls, ML, and financial mathematics through this project."
+    sleepsync: "SleepSync - application focused on sleep tracking and synchronization, built with modern web technologies. Part of HackPrinceton 2025.",
+    bitcoin: "Bitcoin Price Prediction - ML model using regression techniques. I taught 50+ Princeton students web scraping, API calls, ML, and financial mathematics through this project."
   },
-  education: "Charles is a student at Princeton University, passionate about the intersection of tech and finance, including machine learning, full-stack development, quantitative research, and data science.",
-  contact: "You can reach Charles at charlespers.m@gmail.com or connect on LinkedIn at linkedin.com/in/charlesmuehl. He's always open to discussing new opportunities and interesting projects.",
-  default: "I can tell you about Charles's skills, experience, projects, education, or how to contact him. What would you like to know?"
+  education: "I'm a student at Princeton University, focused on AI/ML research and sustainable AI development. I'm passionate about building responsible, efficient machine learning systems.",
+  contact: "You can reach me at charlespers.m@gmail.com or connect on LinkedIn at linkedin.com/in/charlesmuehl. I'm always open to discussing new opportunities and interesting projects, especially in AI/ML research and sustainable AI development.",
+  default: "I can tell you about my skills, experience, projects, education, or how to contact me. What would you like to know?"
 };
 
 // Simple AI response generator
@@ -48,6 +49,10 @@ const generateResponse = (userMessage) => {
   
   if (message.match(/(machine learning|ml|ai|artificial intelligence|neural|deep learning|tensorflow|pytorch)/)) {
     return knowledgeBase.skills.ml;
+  }
+  
+  if (message.match(/(sustainable|efficient|environment|green|responsible|ethics|ethical)/)) {
+    return knowledgeBase.skills.sustainable;
   }
   
   if (message.match(/(web|frontend|backend|react|full.?stack|website|app)/)) {
@@ -138,7 +143,7 @@ const TypingIndicator = () => (
 const Contact = () => {
   const [messages, setMessages] = useState([
     {
-      text: "Hello! I'm Charles's AI assistant. I can tell you about his skills, experience, projects, and more. What would you like to know?",
+      text: "Hello! I'm Charles. I can tell you about my skills, experience, projects, and more. What would you like to know?",
       isUser: false,
     },
   ]);
@@ -238,7 +243,7 @@ const Contact = () => {
             </span>
           </motion.div>
           <h2 className={`${styles.sectionHeadText} mb-4`}>
-            Chat with <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI</span>
+            Chat with <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Me</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Ask me anything about my skills, experience, projects, or how we can work together.
@@ -267,7 +272,7 @@ const Contact = () => {
                 />
               </div>
               <div>
-                <h3 className="text-white font-semibold">Charles AI</h3>
+                <h3 className="text-white font-semibold">Charles</h3>
                 <p className="text-xs text-gray-400">Online • Ready to chat</p>
               </div>
             </div>
@@ -308,7 +313,7 @@ const Contact = () => {
               <div className="flex-1 relative">
                 <input
                   ref={inputRef}
-                  type="text"
+            type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask me anything..."
@@ -322,7 +327,7 @@ const Contact = () => {
                 </div>
               </div>
               <motion.button
-                type="submit"
+            type="submit"
                 disabled={!input.trim() || isTyping}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -333,9 +338,9 @@ const Contact = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </motion.button>
-            </form>
+        </form>
           </div>
-        </motion.div>
+      </motion.div>
 
         {/* Contact Info Footer */}
         <motion.div
@@ -346,6 +351,30 @@ const Contact = () => {
           className="mt-8 text-center"
         >
           <p className="text-gray-400 text-sm mb-4">Prefer traditional contact?</p>
+          <div className="flex items-center gap-2 text-sm">
+            <span className="text-gray-400">Email:</span>
+            <code className="px-2 py-1 bg-white/5 border border-white/10 rounded text-white font-mono text-xs">
+              charlespers.m@gmail.com
+            </code>
+            <motion.button
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText("charlespers.m@gmail.com");
+                  alert("Email copied to clipboard!");
+                } catch (err) {
+                  console.error("Failed to copy:", err);
+                }
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="p-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded transition-colors"
+              title="Copy email"
+            >
+              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </motion.button>
+          </div>
           <div className="flex items-center justify-center gap-6">
             <motion.a
               href="mailto:charlespers.m@gmail.com"
@@ -370,8 +399,8 @@ const Contact = () => {
               <span>LinkedIn</span>
             </motion.a>
           </div>
-        </motion.div>
-      </div>
+      </motion.div>
+    </div>
     </section>
   );
 };

@@ -1,18 +1,51 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { styles } from "../styles";
 import { github } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
 
+// Project Filter Component
+const ProjectFilter = ({ activeFilter, setActiveFilter }) => {
+  const filters = ["All", "AI/ML", "Web", "Full-Stack"];
+  
+  return (
+    <div className="flex flex-wrap gap-2 justify-center mb-8">
+      {filters.map((filter) => (
+        <button
+          key={filter}
+          onClick={() => setActiveFilter(filter)}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+            activeFilter === filter
+              ? "bg-blue-500 text-white"
+              : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10"
+          }`}
+        >
+          {filter}
+        </button>
+      ))}
+    </div>
+  );
+};
+
 const ProjectCard = ({ name, description, tags, image, source_code_link, live_link, index }) => {
+  const isWinner = description.includes("Winner") || tags.some(tag => tag.name.includes("Winner"));
+  
   return (
     <motion.div
-      variants={fadeIn("up", "spring", index * 0.1, 0.75)}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
       whileHover={{ y: -4 }}
-      className="group"
+      className="group relative"
     >
+      {isWinner && (
+        <div className="absolute -top-2 -right-2 z-20 px-2 py-1 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-md text-xs font-bold text-white shadow-lg">
+          Winner
+        </div>
+      )}
       <div className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden hover:border-blue-500/30 transition-all duration-200 h-full flex flex-col">
         {/* Image Container */}
         <div className="relative w-full h-48 overflow-hidden bg-white/5">
@@ -75,6 +108,51 @@ const ProjectCard = ({ name, description, tags, image, source_code_link, live_li
 };
 
 const Works = () => {
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const filteredProjects = React.useMemo(() => {
+    if (activeFilter === "All") {
+      return projects;
+    }
+
+    return projects.filter(project => {
+      const tagsString = project.tags.map(t => t.name.toLowerCase()).join(" ");
+      const descriptionLower = project.description.toLowerCase();
+      const combinedText = `${tagsString} ${descriptionLower}`;
+      
+      if (activeFilter === "AI/ML") {
+        return (
+          tagsString.includes("machine learning") || 
+          tagsString.includes("ml") || 
+          combinedText.includes("ai") ||
+          combinedText.includes("neural") ||
+          tagsString.includes("regression") ||
+          tagsString.includes("quantitative")
+        );
+      }
+      
+      if (activeFilter === "Web") {
+        return (
+          tagsString.includes("react") || 
+          tagsString.includes("web development") ||
+          tagsString.includes("web") ||
+          descriptionLower.includes("website") ||
+          descriptionLower.includes("web application")
+        );
+      }
+      
+      if (activeFilter === "Full-Stack") {
+        return (
+          tagsString.includes("full-stack") || 
+          tagsString.includes("fullstack") ||
+          (tagsString.includes("react") && tagsString.includes("supabase"))
+        );
+      }
+      
+      return true;
+    });
+  }, [activeFilter]);
+
   return (
     <div className="relative">
       <motion.div variants={textVariant()}>
@@ -104,10 +182,30 @@ const Works = () => {
         </p>
       </motion.div>
 
+      <ProjectFilter activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} {...project} index={index} />
-        ))}
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project, index) => (
+              <ProjectCard 
+                key={project.name} 
+                {...project} 
+                index={index} 
+              />
+            ))
+          ) : (
+            <motion.div
+              key="no-projects"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="col-span-full text-center py-12"
+            >
+              <p className="text-gray-400">No projects found in this category.</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

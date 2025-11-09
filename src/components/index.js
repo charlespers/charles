@@ -5,4 +5,15 @@ export { default as Hero } from "./Hero";
 export { default as Navbar } from "./Navbar";
 export { default as Tech } from "./Tech";
 export { default as Works } from "./Works";
-
+export { default as EmailSection } from "./EmailSection";
+export { default as CommandPrompt } from "./CommandPrompt";
+export { default as ViewportTracker } from "./ViewportTracker";
+export { default as ThemeToggle } from "./ThemeToggle";
+export { default as CopyToClipboard } from "./CopyToClipboard";
+export { default as StatusIndicator } from "./StatusIndicator";
+export { default as QuickActions } from "./QuickActions";
+export { default as SmoothScroll } from "./SmoothScroll";
+export { default as KeyboardNavigation } from "./KeyboardNavigation";
+export { default as ReadingProgress } from "./ReadingProgress";
+export { default as FocusMode } from "./FocusMode";
+export { default as BackToTop } from "./BackToTop";
