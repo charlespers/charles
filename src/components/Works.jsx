@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { styles } from "../styles";
 import { github } from "../assets";
@@ -29,8 +29,170 @@ const ProjectFilter = ({ activeFilter, setActiveFilter }) => {
   );
 };
 
-const ProjectCard = ({ name, description, tags, image, source_code_link, live_link, index }) => {
+// Before/After Image Slider Component
+const BeforeAfterSlider = ({ images, name, isWinner }) => {
+  const [sliderPosition, setSliderPosition] = useState(50);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isAutoAnimating, setIsAutoAnimating] = useState(true);
+  const [direction, setDirection] = useState(1);
+  const containerRef = useRef(null);
+  const animationRef = useRef(null);
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setIsAutoAnimating(false);
+    updateSliderPosition(e);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    updateSliderPosition(e);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const updateSliderPosition = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    setSliderPosition(percentage);
+  };
+
+  // Auto-oscillate animation
+  useEffect(() => {
+    if (images.length <= 1 || !isAutoAnimating || isDragging) return;
+
+    const animate = () => {
+      setSliderPosition((prev) => {
+        let next = prev + direction * 0.5;
+        
+        if (next >= 95) {
+          next = 95;
+          setDirection(-1);
+        } else if (next <= 5) {
+          next = 5;
+          setDirection(1);
+        }
+        
+        return next;
+      });
+      
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isAutoAnimating, isDragging, direction, images.length]);
+
+  useEffect(() => {
+    if (isDragging) {
+      const handleMove = (e) => handleMouseMove(e);
+      const handleUp = () => handleMouseUp();
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('mouseup', handleUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMove);
+        window.removeEventListener('mouseup', handleUp);
+      };
+    }
+  }, [isDragging]);
+
+  if (images.length <= 1) {
+    return (
+      <div className="relative w-full h-full">
+        <img
+          src={images[0]}
+          alt={name}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            console.error(`Failed to load image: ${images[0]}`);
+          }}
+        />
+        {isWinner && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="absolute top-3 left-3 z-10"
+          >
+            <div className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 px-3 py-1.5 rounded-lg shadow-2xl flex items-center gap-2 border-2 border-white/30">
+              <span className="text-white font-bold text-xs whitespace-nowrap">HackPrinceton Winner</span>
+            </div>
+          </motion.div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-hidden cursor-col-resize"
+      onMouseDown={handleMouseDown}
+      onClick={() => setIsAutoAnimating(false)}
+    >
+      {/* Before Image (Background) */}
+      <div className="absolute inset-0">
+        <img
+          src={images[0]}
+          alt={`${name} - Project`}
+          className="w-full h-full object-cover"
+          draggable={false}
+        />
+        {isWinner && (
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent pointer-events-none" />
+        )}
+      </div>
+
+      {/* After Image (Foreground with clip) */}
+      <div
+        className="absolute inset-0"
+        style={{
+          clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
+        }}
+      >
+        <img
+          src={images[1]}
+          alt={`${name} - Prize`}
+          className="w-full h-full object-cover"
+          draggable={false}
+        />
+      </div>
+
+      {/* Slider Handle */}
+      <div
+        className="absolute top-0 bottom-0 w-1 bg-white cursor-col-resize z-20 transition-opacity"
+        style={{ left: `${sliderPosition}%`, opacity: isAutoAnimating ? 0.7 : 1 }}
+      >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-blue-500">
+          <div className="flex gap-0.5">
+            <div className="w-0.5 h-3 bg-blue-500 rounded-full" />
+            <div className="w-0.5 h-3 bg-blue-500 rounded-full" />
+          </div>
+        </div>
+      </div>
+
+      {/* Labels */}
+      <div className="absolute top-3 left-3 z-10 bg-black/40 backdrop-blur-sm px-2 py-1 rounded text-xs text-white font-medium">
+        Project
+      </div>
+      <div className="absolute top-3 right-3 z-10 bg-black/40 backdrop-blur-sm px-2 py-1 rounded text-xs text-white font-medium">
+        Prize
+      </div>
+    </div>
+  );
+};
+
+const ProjectCard = ({ name, description, tags, image, source_code_link, live_link, index, prizeImage }) => {
   const isWinner = description.includes("Winner") || tags.some(tag => tag.name.includes("Winner"));
+  const images = prizeImage ? [image, prizeImage] : [image];
   
   return (
     <motion.div
@@ -42,27 +204,45 @@ const ProjectCard = ({ name, description, tags, image, source_code_link, live_li
       className="group relative"
     >
       {isWinner && (
-        <div className="absolute -top-2 -right-2 z-20 px-2 py-1 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-md text-xs font-bold text-white shadow-lg">
-          Winner
-        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="absolute -top-3 -right-3 z-30"
+        >
+          <motion.div
+            animate={{
+              boxShadow: [
+                "0 0 20px rgba(251, 191, 36, 0.5)",
+                "0 0 40px rgba(251, 191, 36, 0.8)",
+                "0 0 20px rgba(251, 191, 36, 0.5)",
+              ],
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="px-3 py-1.5 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 rounded-lg shadow-2xl border-2 border-white/30"
+          >
+            <div className="flex items-center gap-1.5">
+              <span className="text-white font-bold text-xs whitespace-nowrap">Winner</span>
+            </div>
+          </motion.div>
+        </motion.div>
       )}
-      <div className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden hover:border-blue-500/30 transition-all duration-200 h-full flex flex-col">
-        {/* Image Container */}
+      <div className={`relative bg-white/5 border rounded-lg overflow-hidden transition-all duration-200 h-full flex flex-col ${
+        isWinner ? "border-yellow-500/30 hover:border-yellow-500/50" : "border-white/10 hover:border-blue-500/30"
+      }`}>
+        {/* Image Container with Slider */}
         <div className="relative w-full h-48 overflow-hidden bg-white/5">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent" />
+          <BeforeAfterSlider images={images} name={name} isWinner={isWinner && prizeImage} />
           
           {/* Action Buttons */}
-          <div className="absolute bottom-3 right-3 flex gap-2">
+          <div className="absolute bottom-3 right-3 flex gap-2 z-10">
             {live_link && (
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.open(live_link, "_blank")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(live_link, "_blank");
+                }}
                 className="w-8 h-8 rounded-md bg-blue-500 hover:bg-blue-600 flex items-center justify-center cursor-pointer transition-colors"
                 title="View Live Site"
               >
@@ -74,7 +254,10 @@ const ProjectCard = ({ name, description, tags, image, source_code_link, live_li
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open(source_code_link, "_blank")}
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(source_code_link, "_blank");
+              }}
               className="w-8 h-8 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer border border-white/20 transition-colors"
               title="View Source Code"
             >
@@ -85,9 +268,11 @@ const ProjectCard = ({ name, description, tags, image, source_code_link, live_li
 
         {/* Content */}
         <div className="p-5 flex-1 flex flex-col">
-          <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-blue-400 transition-colors">
-            {name}
-          </h3>
+          <div className="flex items-center gap-2 mb-2">
+            <h3 className="text-white font-semibold text-lg group-hover:text-blue-400 transition-colors">
+              {name}
+            </h3>
+          </div>
           <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
             {description}
           </p>
@@ -191,7 +376,8 @@ const Works = () => {
               <ProjectCard 
                 key={project.name} 
                 {...project} 
-                index={index} 
+                index={index}
+                prizeImage={project.name === "Jigsaw" ? "/photos/bestprize-jigsaw.png" : null}
               />
             ))
           ) : (
