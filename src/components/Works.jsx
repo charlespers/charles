@@ -1,76 +1,116 @@
 import React from "react";
-import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
-
 import { styles } from "../styles";
 import { github } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
 
-const ProjectCard = ({ name, description, tags, image, source_code_link }) => {
+const ProjectCard = ({ name, description, tags, image, source_code_link, live_link, index }) => {
   return (
-    <motion.div variants={fadeIn("up", "spring")}>
-      <Tilt
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className="bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full"
-      >
-        <div className="relative w-full h-[230px]">
+    <motion.div
+      variants={fadeIn("up", "spring", index * 0.1, 0.75)}
+      whileHover={{ y: -4 }}
+      className="group"
+    >
+      <div className="relative bg-white/5 border border-white/10 rounded-lg overflow-hidden hover:border-blue-500/30 transition-all duration-200 h-full flex flex-col">
+        {/* Image Container */}
+        <div className="relative w-full h-48 overflow-hidden bg-white/5">
           <img
             src={image}
-            alt="project_image"
-            className="w-full h-full object-cover rounded-2xl"
+            alt={name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
-          <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
-            <div
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent" />
+          
+          {/* Action Buttons */}
+          <div className="absolute bottom-3 right-3 flex gap-2">
+            {live_link && (
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => window.open(live_link, "_blank")}
+                className="w-8 h-8 rounded-md bg-blue-500 hover:bg-blue-600 flex items-center justify-center cursor-pointer transition-colors"
+                title="View Live Site"
+              >
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </motion.div>
+            )}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => window.open(source_code_link, "_blank")}
-              className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
+              className="w-8 h-8 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer border border-white/20 transition-colors"
+              title="View Source Code"
             >
-              <img src={github} alt="source code" className="w-1/2 h-1/2 object-contain" />
-            </div>
+              <img src={github} alt="source code" className="w-4 h-4 object-contain" />
+            </motion.div>
           </div>
         </div>
-        <div className="mt-5">
-          <h3 className="text-white font-bold text-[24px]">{name}</h3>
-          <p className="mt-2 text-secondary text-[14px]">{description}</p>
+
+        {/* Content */}
+        <div className="p-5 flex-1 flex flex-col">
+          <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-blue-400 transition-colors">
+            {name}
+          </h3>
+          <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
+            {description}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span
+                key={tag.name}
+                className={`text-xs px-2 py-1 rounded-md ${tag.color} bg-white/5 border border-white/10`}
+              >
+                {tag.name}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <p key={tag.name} className={`text-[14px] ${tag.color}`}>
-              #{tag.name}
-            </p>
-          ))}
-        </div>
-      </Tilt>
+      </div>
     </motion.div>
   );
 };
 
 const Works = () => {
   return (
-    <>
+    <div className="relative">
       <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} `}>My work</p>
-        <h2 className={`${styles.sectionHeadText}`}>Projects</h2>
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-block mb-4"
+          >
+            <span className="text-xs text-blue-400 font-medium tracking-wider uppercase">
+              Projects
+            </span>
+          </motion.div>
+          <h2 className={`${styles.sectionHeadText} text-center mb-6`}>
+            Featured work
+          </h2>
+        </div>
       </motion.div>
-      <div className="w-full flex">
-        <motion.p variants={fadeIn("", "", 0.1)} className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]">
-          Following projects showcase my skills and experience through examples
-          of my work. Each project is briefly described with links to code
-          repositories in it.
-        </motion.p>
-      </div>
-      <div className="mt-20 flex flex-wrap gap-7">
+      
+      <motion.div
+        variants={fadeIn("", "", 0.1)}
+        className="max-w-5xl mx-auto text-center mb-12"
+      >
+        <p className="text-gray-400 text-base leading-relaxed">
+          A collection of projects showcasing innovation in AI, machine learning, and full-stack development.
+        </p>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} {...project} />
+          <ProjectCard key={`project-${index}`} {...project} index={index} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, "projects");
