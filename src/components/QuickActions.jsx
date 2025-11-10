@@ -7,7 +7,7 @@ const QuickActions = () => {
   const actions = [
     { label: "View GitHub", icon: "→", action: () => window.open("https://github.com/charlespers", "_blank") },
     { label: "Open LinkedIn", icon: "→", action: () => window.open("https://www.linkedin.com/in/charlesmuehl/", "_blank") },
-    { label: "Download Resume", icon: "↓", action: () => window.open("https://drive.google.com/file/d/1ca93iRLZ9_L6lf323_3HT2qflpIGJeP-/view?usp=sharing", "_blank") },
+    { label: "Download Resume", icon: "↓", action: () => window.open(`${import.meta.env.BASE_URL}Resume.pdf`, "_blank") },
     { label: "Send Email", icon: "✉", action: () => window.location.href = "mailto:charlespers.m@gmail.com" },
   ];
 

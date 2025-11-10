@@ -65,7 +65,7 @@ const Navbar = () => {
   }, []);
 
   const toggleResume = () => {
-    const resumeUrl = 'https://drive.google.com/file/d/1ca93iRLZ9_L6lf323_3HT2qflpIGJeP-/view?usp=sharing';
+    const resumeUrl = `${import.meta.env.BASE_URL}Resume.pdf`;
     window.open(resumeUrl, '_blank');
   };
 
