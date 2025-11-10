@@ -22,8 +22,12 @@ import {
 } from './components';
 
 const App = () => {
+  // Get base path from environment or default to /charles/ for GitHub Pages
+  const basePath = import.meta.env.BASE_URL || '/charles/';
+  
   return (
     <BrowserRouter
+      basename={basePath}
       future={{
         v7_startTransition: true,
         v7_relativeSplatPath: true,
