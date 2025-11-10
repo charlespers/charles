@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getAssetPath } from "../utils/paths";
 
 const QuickActions = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
-  const baseUrl = import.meta.env.BASE_URL || '/';
 
   const actions = [
     { label: "View GitHub", icon: "→", action: () => window.open("https://github.com/charlespers", "_blank") },
     { label: "Open LinkedIn", icon: "→", action: () => window.open("https://www.linkedin.com/in/charlesmuehl/", "_blank") },
-    { label: "Download Resume", icon: "↓", action: () => window.open(`${baseUrl}Resume.pdf`, "_blank") },
+    { label: "Download Resume", icon: "↓", action: () => window.open(getAssetPath("Resume.pdf"), "_blank") },
     { label: "Send Email", icon: "✉", action: () => window.location.href = "mailto:charlespers.m@gmail.com" },
   ];
 

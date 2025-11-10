@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { close, menu } from '../assets';
 import { navLinks } from '../constants';
 import { styles } from '../styles';
+import { getAssetPath } from '../utils/paths';
 
 // Keyboard Shortcuts Indicator
 const KeyboardShortcuts = () => {
@@ -65,8 +66,7 @@ const Navbar = () => {
   }, []);
 
   const toggleResume = () => {
-    const baseUrl = import.meta.env.BASE_URL || '/';
-    const resumeUrl = `${baseUrl}Resume.pdf`;
+    const resumeUrl = getAssetPath("Resume.pdf");
     window.open(resumeUrl, '_blank');
   };
 
