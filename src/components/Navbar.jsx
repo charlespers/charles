@@ -65,7 +65,8 @@ const Navbar = () => {
   }, []);
 
   const toggleResume = () => {
-    const resumeUrl = `${import.meta.env.BASE_URL}Resume.pdf`;
+    const baseUrl = import.meta.env.BASE_URL || '/';
+    const resumeUrl = `${baseUrl}Resume.pdf`;
     window.open(resumeUrl, '_blank');
   };
 
