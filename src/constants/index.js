@@ -15,6 +15,13 @@ import {
   quantcap,
 } from "../assets";
 
+// Helper to get asset path with base URL
+const getAssetPath = (path) => {
+  const base = import.meta.env.BASE_URL;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${base}${cleanPath}`;
+};
+
 export const navLinks = [
   {
     id: "about",
@@ -128,7 +135,7 @@ export const projects = [
       { name: "Machine Learning", color: "purple-text-gradient" },
       { name: "HackPrinceton Winner", color: "purple-text-gradient" },
     ],
-    image: "/photos/jigsaw-with-txt.png",
+    image: getAssetPath("/photos/jigsaw-with-txt.png"),
     source_code_link: "https://github.com/charlespers/Jigsaw",
     live_link: "https://jigsaw-five.vercel.app/design",
   },
@@ -141,7 +148,7 @@ export const projects = [
       { name: "Web Development", color: "green-text-gradient" },
       { name: "Design", color: "purple-text-gradient" },
     ],
-    image: "/photos/pqt-website-photo-demo.png",
+    image: getAssetPath("/photos/pqt-website-photo-demo.png"),
     source_code_link: "https://github.com/charlespers/PQT_Education_Series_25-26",
     live_link: "https://princeton-quant.com/",
   },
@@ -154,7 +161,7 @@ export const projects = [
       { name: "Data Visualization", color: "green-text-gradient" },
       { name: "Supabase", color: "purple-text-gradient" },
     ],
-    image: "/photos/eval-website-demo.png",
+    image: getAssetPath("/photos/eval-website-demo.png"),
     source_code_link: "https://github.com/Sundunbun/evalgaming",
     live_link: "https://evalgaming.com/rankings/leagues",
   },
@@ -167,7 +174,7 @@ export const projects = [
       { name: "React", color: "green-text-gradient" },
       { name: "Full-Stack", color: "purple-text-gradient" },
     ],
-    image: "/photos/eval-website-demo.png",
+    image: getAssetPath("/photos/eval-website-demo.png"),
     source_code_link: "https://github.com/Sundunbun/evalgaming",
     live_link: "https://evalgaming.com/",
   },
@@ -180,7 +187,7 @@ export const projects = [
       { name: "React", color: "green-text-gradient" },
       { name: "Data Science", color: "purple-text-gradient" },
     ],
-    image: "/photos/sleep-sync-logo-no-text.png",
+    image: getAssetPath("/photos/sleep-sync-logo-no-text.png"),
     source_code_link: "https://github.com/charlespers/sleepsync",
   },
   {
@@ -192,7 +199,7 @@ export const projects = [
       { name: "Python", color: "green-text-gradient" },
       { name: "Quantitative Finance", color: "purple-text-gradient" },
     ],
-    image: "/photos/pqt-club-logo.png",
+    image: getAssetPath("/photos/pqt-club-logo.png"),
     source_code_link: "https://github.com/charlespers/quantcap-options",
   },
   {
@@ -204,7 +211,7 @@ export const projects = [
       { name: "Python", color: "green-text-gradient" },
       { name: "Machine Learning", color: "purple-text-gradient" },
     ],
-    image: "/photos/pqt-website-photo-demo.png",
+    image: getAssetPath("/photos/pqt-website-photo-demo.png"),
     source_code_link: "https://github.com/charlespers/PQT_Education_Series_25-26",
   },
   {
@@ -216,7 +223,7 @@ export const projects = [
       { name: "Python", color: "green-text-gradient" },
       { name: "Regression", color: "purple-text-gradient" },
     ],
-    image: "/photos/pqt-club-logo.png",
+    image: getAssetPath("/photos/pqt-club-logo.png"),
     source_code_link: "https://github.com/charlespers/project1-bitcoin-pqt",
   },
   {
@@ -228,7 +235,7 @@ export const projects = [
       { name: "Full-Stack", color: "green-text-gradient" },
       { name: "Community", color: "purple-text-gradient" },
     ],
-    image: "/photos/pqt-club-logo.png",
+    image: getAssetPath("/photos/pqt-club-logo.png"),
     source_code_link: "https://github.com/HoagieClub/help",
   },
 ];

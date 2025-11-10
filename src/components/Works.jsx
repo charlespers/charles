@@ -377,7 +377,7 @@ const Works = () => {
                 key={project.name} 
                 {...project} 
                 index={index}
-                prizeImage={project.name === "Jigsaw" ? "/photos/bestprize-jigsaw.png" : null}
+                prizeImage={project.name === "Jigsaw" ? `${import.meta.env.BASE_URL}photos/bestprize-jigsaw.png` : null}
               />
             ))
           ) : (
